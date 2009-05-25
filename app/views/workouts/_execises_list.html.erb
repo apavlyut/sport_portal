@@ -1,0 +1,34 @@
+<h4>
+	<%= muscular_group.title %> &mdash; <%= link_to_function "Картинки", "change_elements('#list-view-#{day.id}','#images-view-#{day.id}')", :class => "js" %> |
+	<%= link_to_function "Список", "change_elements('#images-view-#{day.id}','#list-view-#{day.id}')", :class => "js" %>
+</h4>
+<div class="empty_widget">
+	
+	<div id="list-view-<%= day.id %>" class="hidden">
+		<% muscular_group.exercises.each do |exercise| %>
+			<% random_digit = rand 1000 %>
+			<li id="exercise_<%= exercise.id %>-day-<%= day.id %>-<%= random_digit %>" class="dragabble-exercise list-item"><%= exercise.title %></li>
+			<%= draggable_element("exercise_#{exercise.id}-day-#{day.id}-#{random_digit}", :revert => true, :opacity => 0.40) %>
+		<% end %>
+	</div>
+	
+	<div id="images-view-<%= day.id %>">
+		
+		<% muscular_group.exercises.each do |exercise| %>
+		
+			<% random_digit = rand 1000 %>
+						
+			    <%= image_tag "#{exercise.first_image.public_filename unless exercise.first_image.nil?}", 
+					:width => "110",
+					:class => "dragabble-exercise image_th",
+					:id => "exercise_#{exercise.id}-day-#{day.id}-#{random_digit}",
+					:alt => exercise.title,
+					:title => exercise.title %>
+			
+			<%= draggable_element("exercise_#{exercise.id}-day-#{day.id}-#{random_digit}", :revert => true, :opacity => 0.40) %>
+			
+		<% end %>
+		
+	</div>
+
+</div>

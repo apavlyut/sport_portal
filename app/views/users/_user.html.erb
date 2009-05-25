@@ -1,0 +1,16 @@
+<tr class="<%= cycle('odd', 'even') %>">
+  <td><%=h user.login %></td>	
+  <td><%= user.enabled ? 'да' : 'нет' %>
+    <% unless user == current_user %>
+      <% if user.enabled %>
+        <%= link_to('отключить', user_path(user.id), :method => :delete) %>
+      <% else %>
+        <%= link_to('включить', enable_user_path(user.id), :method => :put) %>
+      <% end %>
+    <% end %>
+  </td>
+	<td>
+		<%= getUserRole(user.role, user.id) %> / <%= link_to 'изменить', :action => 'admin_edit', :id => user.id %>
+	</td>
+  
+</tr>

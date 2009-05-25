@@ -1,0 +1,29 @@
+<h3>Комментят пост:</h3>
+<br />
+<% comments = @post.comments.find(:all)%>
+<% if comments.length == 0 %>
+	Комментариев нет =(<br />
+	<br />
+<% else %>
+	<% comments.each_with_index do |comment, index| %>
+		<% author = User.find_by_id(comment.author).login %>
+		<img src='http://habrahabr.ru/media/userpic/avatar/5e/ef/f8/12853.jpg' class='comment_avatar' align='middle'>
+		<span style='font-weight:bold; color:#999; font-size:0.7em'>#<%= (index+1).to_s %></span>
+		<%= link_to author, user_url(comment.author) %> <span class='date'><%= comment.created_at.strftime("%B %d, %Y %H:%M") %></span> 
+		<span class='small'>оставил коммент:</span>
+		<div class='comment_body'>
+			<%= simple_format(h comment.body) %>
+			<%= link_to 'Удалить', comment_path(comment), :method => 'delete', :class=>'small', :style=>'margin-left:20px; color:red'%>
+		</div>
+		<br clear='all' />
+	<% end %>
+<% end %>
+
+<!-- <h4>Оставить комментарий</h4> -->
+<div id='comment_form'>
+<% form_remote_tag :url => {:controller => 'comments', :action => 'create', :id => @post} do %>
+	<div style='margin-bottom:10px; font-size:0.8em'><%= @current_user.login + ' хочет сказать:' if @current_user %></div>
+	<%= text_area_tag 'comment[body]', nil, :style => 'width:400px; height:100px' %><br />
+	<%= submit_tag 'Send' %>
+<% end %>
+</div>

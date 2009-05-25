@@ -1,0 +1,12 @@
+<h2>All Users</h2>
+<table>
+  <tr>
+    <th>Email/login</th>
+    <th>Активен?</th>
+    <th>Роль</th>
+  </tr>
+    <%= render :partial => 'user', :collection => @users %>
+</table>
+<% content_for :sub_menu do %>
+	<%= render :partial => "/stuff/management_sub_menu" %>
+<% end %>

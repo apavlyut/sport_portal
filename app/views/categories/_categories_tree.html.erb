@@ -1,0 +1,5 @@
+<% for category in @categories %>
+	<% unless category.parent_id == nil %>
+		<div class="category<%= category.level -%>"><%= category.title -%></div>
+	<% end %>
+<% end %>

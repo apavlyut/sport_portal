@@ -1,0 +1,41 @@
+<% form_remote_tag :url => {:action => "step_2"} do -%>
+<div id="workout_tabs">
+	<ul>
+		<% @workout.days.each do |day| %>
+        	<li class="ui-tabs-nav-item">
+				<a href="#day-<%= day.id %>"><%= day.week_day.title %></a>
+			</li>
+		<% end %>
+    </ul>
+	<% @workout.days.each do |day| %>
+        <div id="day-<%= day.id %>">
+           
+			<div class="empty_widget">
+				<table>
+					<tr>
+						<td width="300">
+							<% MuscularGroup.find(:all).each_with_index do |mg, index| %>
+								<% if index == 6 %>
+						</td>
+						<td>
+								<% end %>
+			   					<div>
+			   						<%= check_box_tag "days[#{day.id}][]", mg.id, false, :id => "muscle_group_#{day.id}_#{mg.id}" %>&nbsp;<%= label_tag "muscle_group_#{day.id}_#{mg.id}", mg.title %>
+			   					</div>
+			   				<% end %>	
+						</td>	
+					</tr>
+				</table>	
+			</div>
+			
+        </div>
+	<% end %>
+
+<script type="text/javascript" charset="utf-8">
+	$('#workout_tabs ul').tabs();
+</script>
+
+	<%= hidden_field_tag :workout_id, @workout.id %>
+	
+	<%= next_button %>
+<% end -%>

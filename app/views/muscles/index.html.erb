@@ -1,0 +1,25 @@
+<h1>Мышечные группы</h1>
+
+<ul>
+<% @muscles.each do |muscle| %>
+  <li>
+	<%= link_to muscle.title, muscle %> &mdash;
+	<%= link_to 'Изменить', edit_muscle_path(muscle) %> |
+	<%= link_to 'Удалить', muscle, :confirm => 'Are you sure?', :method => :delete %>
+  </li>
+<% end %>
+</ul>
+<hr>
+
+<% content_for :middle_bar do %>
+	<div class="widget_grey">
+		<h3>Быстрый доступ</h3>
+		<ul>
+			<li><%= link_to "Добавить мышцу", new_muscle_url %></li>
+		</ul>
+	</div>
+<% end %>
+
+<% content_for :sub_menu do %>
+	<%= render :partial => "/stuff/management_sub_menu" %>
+<% end %>

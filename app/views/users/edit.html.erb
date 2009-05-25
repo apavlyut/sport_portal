@@ -1,0 +1,32 @@
+<%= stylesheet_link_tag 'profile' %>
+<h1>Редактор профиля</h1>
+
+<% form_for(@user) do |f| %>
+
+	<%= f.label :email, 'Электропочта:' %><br />
+	<%= f.text_field :email, :class => 'profile_field' %>
+	<br />
+	<br />
+	<%= f.label :name, 'Имя:' %><br />
+	<%= f.text_field :name, :class => 'profile_field' %>
+	<br />
+	<br />
+	<br />
+	<div style='width:70%'>Номер телефона и адрес будут скрыты для других пользователей.<br />Необходимы при оформлении покупок в магазине.</div>
+	<br />
+	<%= f.label :phone, 'Номер телефона' %><br />
+	<%= f.text_field :phone, :class => 'profile_field' %>
+	<br />
+	<br />
+	<%= f.label :address, 'Адрес' %><br />
+	<%= f.text_area :address, :class => 'profile_area'%>
+	<br />
+	<br />
+	<%= f.submit 'Сохранить' %>
+<% end %>
+
+
+
+<% content_for :sub_menu do %>
+	<%= render :partial => "/stuff/management_sub_menu" %>
+<% end %>

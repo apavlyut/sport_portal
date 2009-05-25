@@ -1,0 +1,18 @@
+<h1><%= @muscle.title %></h1>
+<h3>Группа мышц: <%= @muscle.muscular_group.title if not nil %></h3>
+<p>
+	<%= @muscle.description %>
+</p>
+<% content_for :middle_bar do %>
+	<div class="widget_grey">
+		<h3>Ваши действия:</h3>
+		<ul>
+			<li><%= link_to "Редактировать", edit_muscle_url(@muscle) %></li>
+			<li><%= link_to "Удалить", muscle_path(@muscle), :confirm => "Точно?", :method => :delete %></li>
+		</ul>
+	</div>
+<% end %>
+
+<% content_for :sub_menu do %>
+	<%= render :partial => "/stuff/management_sub_menu" %>
+<% end %>

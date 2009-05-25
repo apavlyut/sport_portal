@@ -1,0 +1,63 @@
+<h1>Мышцы и их группы</h1>
+
+<ul class="normal">
+<% @muscular_groups.each do |mg| %>
+	<li>
+		<%= link_to mg.title, admin_muscular_group_url(mg) %> |
+		<%= link_to "Редактировать", edit_admin_muscular_group_url(mg) %> |
+		<%= link_to 'Удалить', admin_muscular_group_url(mg), :confirm => 'Are you sure?', :method => :delete %>
+		<p>
+			<%= mg.description %>
+			<%= "Описание не добавлено" if mg.description.empty? %>
+		</p>
+		<!-- 
+		<div id="muscular-group-<%= mg.id %>" class="empty_widget">
+			<h4>Мышцы этой группы &mdash;
+			<%= link_to_function "Показать", :id => "show-muscles-link-#{mg.id}", :class => "js"  do |page|
+					page["muscle_group-#{mg.id}-muscles"].show
+					page["muscular-group-#{mg.id}"].addClass "widget_grey"
+					page["muscular-group-#{mg.id}"].removeClass "empty_widget"
+					page["show-muscles-link-#{mg.id}"].hide
+					page["hide-muscles-link-#{mg.id}"].show
+				end %><%= link_to_function "Убрать", :id => "hide-muscles-link-#{mg.id}", :class => "js hidden"  do |page|
+					page["muscle_group-#{mg.id}-muscles"].hide
+					page["muscular-group-#{mg.id}"].addClass "empty_widget"
+					page["muscular-group-#{mg.id}"].removeClass "widget_grey"
+					page["show-muscles-link-#{mg.id}"].show
+					page["hide-muscles-link-#{mg.id}"].hide
+				end %></h4>
+			
+				<div id="muscle_group-<%= mg.id %>-muscles" class="hidden">
+					<ul class="normal">
+						<% mg.muscles.each do |m| %>
+							<li>
+								<%= link_to m.title, admin_muscular_group_muscle_url(mg, m) %>
+								<p>
+									<%= m.description %>
+									<%= "Описание не добавлено" if m.description.empty? %>
+								</p>
+							</li>
+						<% end %>
+					</ul>
+					<div class="widget_light_yellow">
+						<%= link_to "Добавить мышцу в эту группу &rarr;", new_admin_muscular_group_muscle_url(mg) %>
+					</div>
+				</div>
+		</div>
+		<%= javascript_tag "Element.hide('muscle_group-#{mg.id}-muscles')" %>
+		-->
+	</li>
+<% end %>
+</ul>
+<% content_for :sub_menu do %>
+	<%= render :partial => "admin/menus/admin_main_submenu" %>
+<% end %>
+
+<% content_for :middle_bar do %>
+	<div class="widget_grey">
+		<h3>Быстрый доступ</h3>
+		<ul class="normal">
+			<li><%= link_to "Добавить группу мышц", new_admin_muscular_group_url %></li>
+		</ul>
+	</div>
+<% end %>

@@ -1,0 +1,38 @@
+<% form_for(@product, :html => { :multipart => true }) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </p>
+	<p>
+		<label for='image_image'>Upload an Image</label>
+		<%= file_field :image, :uploaded_data %>
+	</p>
+	<p>
+		<% for category in @categories %>
+				<% 
+					@boo = category.all_children_count > 0
+					@class = ''
+					@class = 'grey' if @boo
+					@boo = !@product.categories.include?(category) if @boo
+				%>
+				<%= "..."*(category.level) %>
+		  	<%= check_box_tag "product[category_ids][]", category.id, @product.categories.include?(category), :id => "checkbox_link_"+category.id.to_s, :disabled => @boo %>
+		  	<%= label "checkbox_link_", category.id, category.title, :class => @class %>
+		    <br />
+    <% end %>
+	</p>
+	
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>

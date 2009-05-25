@@ -1,0 +1,1 @@
+page[:post_body_text].replace_html :partial => 'comments', :object => @post.comments

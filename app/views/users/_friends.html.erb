@@ -1,0 +1,4 @@
+<h1>мир дружба жевачка:</h1>
+<% @friends.each do |friend| %>
+	<%= link_to friend.login, management_user_url(friend.id) %> 
+<% end %>

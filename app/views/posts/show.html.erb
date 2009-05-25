@@ -1,0 +1,39 @@
+<%= stylesheet_link_tag "blogs" %>
+<img src='http://habrahabr.ru/media/userpic/avatar/5e/ef/f8/12853.jpg' class='big_avatar' align='absmiddle'>
+<% user = User.find_by_id(@post.author) %>
+<%= link_to user.login, user %>, пишет:
+<br clear='all' \>
+<br /><br />
+<div class='post_body_text'>
+	<h1><%= @post.title %></h1>
+	<%= simple_format(h @post.body) %>
+	<%= link_to 'Edit', edit_post_path(@post) %> |
+	<%= link_to 'Удалить', @post, :confirm => 'Are you sure?', :method => 'delete', :class => 'delete' %>
+	<br />
+	<br />
+	<br/>
+	<br />
+	<!-- <h3>Комментарии:</h3> -->
+	
+	<div id='comments'>
+		<h3>Комментят пост:</h3>
+		<br />
+		<% @id = 0 %>
+		<%=render :partial => "comments/comment", :collection => @post.comments, :object => @id%>
+	</div>
+	
+	<!-- <h4>Оставить комментарий</h4> -->
+	<div id='comment_form'>
+	<% form_remote_tag :url => {:controller => 'comments', :action => 'create', :id => @post}, :html => {:id => 'review_form'} do %>
+		<div style='margin-bottom:10px; font-size:0.8em'><%= @current_user.login + ' хочет сказать:' if @current_user %></div>
+		<%= hidden_field_tag 'num', @id%>
+		<%= text_area_tag 'comment[body]', nil, :style => 'width:400px; height:100px' %><br />
+		<%= submit_tag 'Send' %>
+	<% end %>
+	</div>
+	
+</div>
+
+<br />
+<br />
+<br />

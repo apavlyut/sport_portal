@@ -1,0 +1,12 @@
+<% for item in TopMenu.find(:all) %>
+	<% if item.url == request.request_uri %>
+		<div class="menu_main_element_choosen"><%= item.title %></div>
+	<% else %>
+		<div class="menu_main_element"><%= link_to item.title, item.url %></div>
+	<% end %>
+<% end %>
+
+<!-- <div class="menu_main_element"><a href="das">Fitset</a></div>
+<div class="menu_main_element_choosen">Магазин</div>
+<div class="menu_main_element"><a href=''>Сообщество</a></div>
+<div class="menu_main_element"><a href="">Тренировки</a></div> -->

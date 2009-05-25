@@ -1,0 +1,5 @@
+page.insert_html :bottom, :comments, :partial => 'comment', :object => @comment, :locals => { :id => @id }
+page.select("#comment_#{@comment.id}").visual_effect :highlight
+page[:review_form].reset
+page[:num].value = @id
+flash.discard

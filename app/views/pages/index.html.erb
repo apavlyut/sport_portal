@@ -1,0 +1,80 @@
+<h1>Новости</h1>
+<h2><%= link_to "Сенсация" %> &rarr; <%= link_to "25% женщин во всем мире регулярно занимаются фитнесом", "", :style => "color:black" %></h2>
+<p><img src="/images/news1.jpg" align="right" hspace="10" height="250">Reebok International в сотрудничестве с исследовательской компанией GFK Roper Worldwide провели масштабный опрос об отношении женщин к занятиям фитнесом.
+<p>Опросив 15 000 женщин из 25 стран мира было выяснено, что только 25% женщин регулярно занимаюся фитнесом, хотя и признают, что занятия спортом положительно сказываются на состяонии здоровья и самочувствии.</p>
+<p>Результаты опроса показали, что женщины воспринимают зантяия фитнесом как должность. Многие из них занялись бы фитнесом, если бы занятия были более интересными и увлекательными.</p>
+<div class="writer">
+	<em>Категории</em>: <%= link_to "Женщины" %>, <%= link_to "Исследования" %><br>
+	<em>Сегодня, 12:35</em>, <img src="/images/author.jpg">&nbsp;<%= link_to "Роман Сергеев" %><br>
+	<%= link_to "Комментарии (12)" %>, <%= link_to "Комментировать" %>, <%= link_to "Ссылка" %>
+</div>
+<table>
+	<tr>
+		<td width="50%" valign="top" style="padding-right:10px">
+			<h2><%= link_to "Бизнес" %> &rarr; <%= link_to "Осенняя коллекция женской одежды Nike Women Fitness", "", :style => "color:black" %></h2>
+			<p>
+				<img src="/images/news2.jpg" hspace="5" height="150" align="right">Nike представляет новую линейку одежды Training Sport Essential. Осенняя коллекция Nike многофункциональна, каждая модель выполнена в нескольких цветах. Найди свой образ. Не бойся выбирать. Сочетай и экспериментируй. Тренируйся и добивайся своих целей.
+			</p>
+			<div class="writer">
+				<em>Категории</em>: <%= link_to "Nike" %>, <%= link_to "Стиль" %><br>
+				<em>Сегодня, 12:35</em>, <img src="/images/author.jpg">&nbsp;<%= link_to "Роман Сергеев" %><br>
+				<%= link_to "Комментарии (4)" %>, <%= link_to "Комментировать" %>, <%= link_to "Ссылка" %>
+			</div>
+		</td>
+		<td valign="top" style="padding-left:10px">
+			<h2><%= link_to "Блоги" %> &rarr; <%= link_to "Экологичный спортзал", "", :style => "color:black" %></h2>
+			<p>
+				<img src="/images/news3.jpeg" hspace="5" height="120" align="right">Модель этакого экологичного спортзала придумал и воплотил профессиональный тренер из Америки Адам Бозел. Его детище - Green Microgym в городе Портленд - получает электричество исключительно за счет альтернативных источников энергии. И один из этих источников: сами занимающиеся. Попади мы в Портленде в этот зальчик - мы бы стали "альтернативными источниками энергии". Почетно.</p>
+				<div class="writer">
+					<em>Категории</em>: <%= link_to "Ноу-хау" %>, <%= link_to "В мире" %><br>
+					<em>Сегодня, 12:35</em>, <img src="/images/author.jpg">&nbsp;<%= link_to "Роман Сергеев" %><br>
+					<%= link_to "Комментарии (28)" %>, <%= link_to "Комментировать" %>, <%= link_to "Ссылка" %>
+				</div>
+		</td>
+	</tr>
+</table>
+
+
+
+<% content_for :sub_menu do %>
+	<%= content_tag(:div, context_ad.gsub("<br>","&nbsp;&mdash;&nbsp;"), :id => "top_context_ad") %>
+<% end %>
+
+
+<% content_for :middle_bar do %>
+	<div class="widget_blue">
+		<h3>Люди говорят</h3>
+		<% for post in @posts %>
+			<div class='post_top_links'>
+				<img src='http://habrahabr.ru/media/userpic/avatar/5e/ef/f8/12853.jpg' class='small_avatar' align='middle'>
+				<% user = User.find_by_id(post.author) %>
+				<%= link_to user.login, user %>, <span class='date'><%= post.created_at.strftime("%B %d, %Y %H:%M") %></span>, написал:
+			</div>
+			<div class='post_short'>
+				<h2><%= link_to post.title, '/blogs/'+post.author.to_s+'/'+post.id.to_s+'/' %></h2>
+				<%= h (truncate(post.body, 200)) %>
+				<div class='post_links'>
+					<!-- <span style='color:red'>↓</span> 2 <span style='color:green'>↑</span> -->
+					<%= link_to 'комментарии', '/blogs/'+post.author.to_s+'/'+post.id.to_s+'/' %> (<%= post.replies || '0'%>)
+				</div>
+			</div>
+			<br /><br />
+		<% end %>
+	</div>
+	<div class="widget_grey">
+		<h3>Встречаем новичков</h3>
+	</div>
+<% end %>
+
+<% content_for :sidebar do %>
+	<div class="widget_middle_grey">
+		<h3>Рекламные ссылки</h3>
+	</div>
+	<div class="widget_light_yellow">
+		<h3>Крутой виджет</h3>
+	</div>
+	<div class="widget_grey">
+		<h3>Прямой эфир</h3>
+	</div>
+
+<% end %>

@@ -1,0 +1,33 @@
+<%= stylesheet_link_tag "messages" %>
+<h1>Ваша переписка</h1>
+<table width='80%'>
+<% for message in @messages %>
+	<tr height='30px' valign='bottom'>
+	<td width='15%' align='left'>
+	<% if message.status < 3 %>
+		<% user = message.sender if params[:action] == 'index' %>
+		<% user = message.reciever if params[:action] != 'index' %>
+		<b style='font-size:0.8em'>
+		<% if user %>
+		<%= link_to user.login, user  %>
+		<% else %>
+		Пользователь удален
+		<% end %>
+		</b>
+	<% end %>
+	</td>
+	<td width='50%'>
+		<%= link_to (h truncate(message.body, 30)), message, :class => getClass(message.status) if message.status < 3 %>
+		<%= link_to message.title, message, :class => getClass(message.status) if message.status == 3 %>
+	</td>
+	<td width='40%'><b style='font-size:0.8em'><%= message.created_at.strftime("%B %d, %Y %H:%M")%></td>
+	<td width='5%'><%= link_to 'Удалить', message, :confirm => 'Are you sure?', :method => :delete, :class => 'delete', :method => 'delete' %></td>
+	</tr>
+<% end %>
+</table>
+<br /><br /><br /><br /><br />
+
+
+<% content_for :sub_menu do %>
+	<%= render :partial => "in_out" %>
+<% end %>

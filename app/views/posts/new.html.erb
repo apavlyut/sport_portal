@@ -1,0 +1,17 @@
+<%= stylesheet_link_tag "blogs" %>
+<h1>Новая запись</h1>
+
+<% form_for(@post) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label 'О чем писать будем?', {}, :class => 'post_title' %><br /><br />
+    <%= f.text_field :title, :class => 'post_title' %>
+  </p>
+  <p>
+    <%= f.text_area :body, :class => 'post_body' %>
+  </p>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>

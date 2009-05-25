@@ -1,0 +1,57 @@
+/* Sliding doors technique */
+.widget {
+	padding: 0px;
+	margin-bottom: 20px;
+}
+
+.widget_nw {
+	background:transparent url(/images/widget/top_left.gif) no-repeat;
+	height:35px;
+}
+
+.widget_w {
+  	border-left:1px solid #B9B9B9;
+}
+
+.widget_sw {
+	border-left:1px solid #B9B9B9;
+}
+
+.widget_title {
+	background:  url(/images/widget/top_right.gif) repeat-x right top;
+	color: #333;
+	font: bold 10pt Verdana, "Lucida Grande", Lucida, sans-serif;
+	height:35px;
+	margin:0 0 0 15px;
+	padding-top: 10px;
+}
+
+.widget_content {
+  	color:#71777A;
+  	font:normal 12px/1em Tahoma, Arial, sans-serif;
+  	padding-top: 10px;
+  	padding-left: 15px;
+  	padding-right: 15px;
+  	border-right:1px solid #B9B9B9;
+  	border-bottom:1px solid #B9B9B9;
+}
+
+.widget_statusbar {
+	font-size:8px;
+	border-bottom:1px solid #B9B9B9;
+}
+
+.widget_draggable {
+  cursor:move;
+}
+
+/* Ghost */
+.widget_ghost {
+  padding:4px;  
+  background:#FFF; 
+  opacity: 0.5;  
+  filter:alpha(opacity=50);	
+  position:relative;  
+  border: 2px dashed #B9B9B9;      
+  margin:0px;
+}

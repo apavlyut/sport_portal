@@ -1,0 +1,60 @@
+<% form_tag "/workouts/step_5" do -%>
+
+<div class="widget_grey">
+	<h3>Уровень сложности</h3>
+	<div class="empty_widget">
+		<% DifficultLevel.find(:all).each do |dl| %>
+			<%= radio_button_tag(:difficult_level_id, dl.id) %>&nbsp;<%= dl.title %>
+		<% end %>
+	</div>
+	
+	<br>
+	
+	<h3>Возрастная группа</h3>
+	<div class="empty_widget">
+		<% AgeLevel.find(:all).each do |al| %>
+			<%= radio_button_tag(:age_level_id, al.id) %>&nbsp;<%= al.title %>
+		<% end %>
+	</div>
+	
+	<h3>Пол</h3>
+	<div class="empty_widget">
+		<%= radio_button_tag 'gender', 1 %>&nbsp;Мужской
+		<%= radio_button_tag 'gender', 2 %>&nbsp;Женский
+	</div>
+	
+	<h3>Цель</h3>
+	<div class="empty_widget">
+		<% Goal.find(:all).each do |goal| %>
+			<%= radio_button_tag(:goal_id, goal.id) %>&nbsp;<%= goal.title %>
+		<% end %>
+	</div>
+	
+	<h3>Место проведения тренировки</h3>
+	<div class="empty_widget">
+		<% Occupacy.find(:all).each do |occupacy| %>
+			<%= radio_button_tag(:occupacy_id, occupacy.id) %>&nbsp;<%= occupacy.title %>
+		<% end %>
+	</div>
+	
+	<h3>Режим тренировки</h3>
+	<div class="empty_widget">
+		<% TrainingMode.find(:all).each do |training_mode| %>
+			<%= radio_button_tag(:training_mode_id, training_mode.id) %>&nbsp;<%= training_mode.title %>
+		<% end %>
+	</div>
+	
+	<h3>Комментарий</h3>
+	<div class="empty_widget">
+		*жирный* &rarr; <strong>Жирный</strong>; _курсив_ &rarr; <em>Курсив</em><br /><br />
+		<%= text_area_tag 'description', "", :rows => 5, :cols => "50" %>
+	</div>
+	
+	
+	<%= hidden_field_tag :workout_id, @workout.id %>
+	<%= next_button %>
+	
+</div>	
+	
+	
+<% end -%>

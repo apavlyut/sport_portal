@@ -1,0 +1,26 @@
+<h1>Listing categories</h1>
+<div style="float:left; padding:5px; width: 200px">
+	<%= render :partial => "categories_tree" %>
+</div>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Transcrib</th>
+    <th>Parent</th>
+  </tr>
+
+<% for category in @categories %>
+  <tr>
+    <td><div style="margin-left:<%= category.level %>em;"><%=h category.title %></div></td>
+    <td><%=h category.transcrib %></td>
+    <td><%=h @what.title if @what = Category.find_by_id(category.parent_id) %><sup><%=h category.parent_id %></sup></td>
+    <td><%= link_to 'Show', category %></td>
+    <td><%= link_to 'Edit', edit_category_path(category) %></td>
+    <td><%= link_to 'Destroy', category, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New category', new_category_path %>

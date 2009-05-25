@@ -1,0 +1,29 @@
+.new_message:link, .new_message:visited
+{
+	color: #3685E2	;
+	font-weight: bold;
+}
+.message:link, .message:visited
+{
+	color: #0551AA;
+}
+.new_system_message:link, .new_system_message:visited
+{
+	color: #F04242;
+	font-weight: bold;
+}
+.system_message:link, .system_message:visited
+{
+	color: #CB1818;
+}
+
+.author, .author:visited
+{
+	color: green;
+}
+
+.delete, .delete:visited
+{
+	color: red;
+	font-size:0.8em;
+}

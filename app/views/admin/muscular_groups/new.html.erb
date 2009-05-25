@@ -1,0 +1,12 @@
+<h1>Новая группа мышц</h1>
+
+<%= error_messages_for :muscular_group %>
+
+<% form_for(@muscular_group, :url => {:controller => "admin/muscular_groups", :action => "create" }, :method => :put)  do |f| %>
+  	<%= render :partial => "form", :locals => {:f => f} %>
+	<%= f.submit "Добавить группу мышц" %>
+<% end %>
+
+<% content_for :sub_menu do %>
+	<%= render :partial => "admin/menus/admin_main_submenu" %>
+<% end %>

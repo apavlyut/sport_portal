@@ -1,0 +1,15 @@
+<%= stylesheet_link_tag 'profile' %>
+<h1>ГЛАВПОЧТАМПТ</h1>
+<% form_for @message do |f| %>
+	<%= f.label :recipient, 'Получатель' %><br />
+	<%= f.text_field :recipient, :class => 'profile_field' %>
+	<br /><br />
+	<%= f.label :body, 'Тексто сообщения' %><br />
+	<%= f.text_area :body, :class => 'profile_area' %>
+	<br /><br />
+	<%= f.submit 'Отправить!11'%>
+<% end %>
+
+<% content_for :sub_menu do %>
+	<%= render :partial => "in_out" %>
+<% end %>

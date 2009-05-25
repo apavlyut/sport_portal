@@ -1,0 +1,23 @@
+<h4>Ваши упражнения:</h4>
+<% unless day_lines.empty? %>
+	<div>
+		<% day_lines.each do |day_line| %>
+			<li class="day_line">
+				<%= link_to day_line.exercise.title, admin_exercise_url(day_line.exercise) %> | 
+				<%= link_to_remote "x", 
+					:url => {
+						:controller => "workouts",
+						:id => day_line.day.workout.id,
+						:action => "remove_day_line", 
+						:day_line_id => day_line.id}, 
+					:class => "red js", 
+					:confirm => "?" %>
+			</li>
+		<% end %>
+	</div>
+<% else %>
+	<br>
+	<p>Выберите необходимые упражения для вашей программы. </p>
+	<br>	
+	<p>Для этого перетащите мышкой упражнения из средней колонки в эту.</p>
+<% end %>

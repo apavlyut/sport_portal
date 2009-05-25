@@ -1,0 +1,46 @@
+<h1>Editing role</h1>
+
+
+
+<% form_for(@role) do |f| %>
+  <%= f.error_messages %>
+
+	<p>
+	  <%= f.label :rolename %><br />
+	  <%= f.text_field :rolename %>
+	</p>
+
+
+	<% if @role.rolename != 'Administrator' %>
+	<p>
+		
+		<% for controller in @controllers_list %>
+  		<%= check_box_tag "controllers_titles[]", controller, is_cheked_controller?(controller), :id => 'my_'+controller %>
+	  	<%= label 'my', controller %>
+			<br />
+			<div style="padding-left:20px">
+			
+			<% for action in getActions(controller) %>
+		  	<div class='actions_list' id='show_hide_<%=controller + "_" + action%>'>
+					<%= check_box_tag "actions_titles["+controller+"][]", action, is_checked_action?(controller, action), :id => 'my_action'+action %>
+			  	<%= label 'my_action', action %>
+					<br />
+				</div>
+			<% end %>
+			</div>
+			<br />
+		<% end %>
+	</p>
+	
+	<%else%>
+		Администратору все дозволено<br /><br />
+	<%end%>
+	
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+
+<%= link_to 'Show', @role %> |
+<%= link_to 'Back', roles_path %>

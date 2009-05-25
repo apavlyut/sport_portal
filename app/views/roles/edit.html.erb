@@ -1,0 +1,57 @@
+
+<%= javascript_include_tag 'roles.js' %>
+<h1>Редактируем роль</h1>
+<p style='font-size:1em; font-weight:bold'><%= link_to 'Назад', roles_path %></p>
+<% form_for(@role) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :rolename, 'Имя роли', :style => 'font-size:1.2em;' %><br />
+    <%= f.text_field :rolename, :style => 'font-size:1.4em; width:400px;margin-top:4px;' %>
+  </p>
+	<p>
+		<%= f.label :comment, 'Комментарий', :style => 'font-size:1.2em;' %><br/ >
+		<%= f.text_area :comment, :style => 'font-size:1.1em; width:400px; height:70px;margin-top:4px;' %>
+	</p>
+
+	<% if @role.rolename != 'Administrator' %>
+		<p>
+			<% for branch in @tree %>
+				<% 
+					controllers += ',"'+branch[0]+'"' if controllers
+					controllers ||= '"'+branch[0]+'"'
+				%>
+			<% end %>
+			Применить права: <b><%= link_to_function 'отметить все', 'check_all('+controllers+')', :class => 'ajax_anchor' %>/<%= link_to_function 'отменить все', 'uncheck_all('+controllers+')', :class => 'ajax_anchor'%></b><% @roles.each do |role| %>, <%= link_to_function role.rolename, 'check('+role.rolename+')', :class => 'ajax_anchor'%><% end %>
+		</p>
+	
+		<h4 style='margin-left:30px; margin-bottom:20px; margin-top:20px;'>Методы:</h4>
+		<div style='margin-top:-15px;margin-bottom: 20px; font-size:0.75em; margin-left:40px;'>
+			<a style='border-bottom:1px dashed; text-decoration:none;' href=# onclick='show_all(<%=controllers%>); return false;'>развернуть все ↓</a> | 
+			<a style='border-bottom:1px dashed; text-decoration:none;' href=# onclick='hide_all(<%=controllers%>); return false;'>свернуть все ↑</a>
+		</div>
+		<% for branch in @tree %>
+			<% controller = branch[0]%>
+			<% actions = branch[1] %>
+			<% if actions.length > 0 %>
+	  		<h4 style='padding:0px;margin-left:40px;'><a href='#' onclick='showActions("<%=controller%>"); return false;' style='border-bottom:1px dashed; text-decoration:none; font-weight:bold' class='<%=controller%>_link'><%=controller%> +</a><div style='font-size:0.7em; margin-top:10px; font-weight:normal' class='<%= controller %>_header'></div></h4>
+		  	<div class='actions_list' id='<%=controller%>' style='display:none; position:relative; margin-left:60px; margin-top:10px;'>
+					<ul style='padding:0px; margin:0px'>
+					<% for action in actions %>
+							<li><%= check_box_tag "actions_titles["+controller+"][]", action, is_checked_action?(controller, action), :id => 'my_action'+action %>
+					  	<%= label 'my_action', action %></li>
+					<% end %>
+					</ul>
+				</div><br />
+			<% end %>
+		<% end %>
+
+	
+	<%else%>
+		<p>Администратору все дозволено</p>
+	<%end%>
+	
+  <p>
+    <%= f.submit "Обновить" %>
+  </p><br/>
+<% end %>

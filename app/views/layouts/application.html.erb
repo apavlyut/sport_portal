@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	<title><%= yield(:title) || "Фитнес на Рельсах"  %></title>
+	<%= stylesheet_link_tag 'reset', 'application', 'widget' %>
+	<%= javascript_include_tag "jquery", "jquery-ui", "jrails", "application" %>
+	<%= yield :head %>
+</head>
+
+<body>
+	   <div id="head">
+	   		<%= image_tag "/images/advertising/adme3.jpg" %>
+	   </div>
+		
+		<div id="navigation_menu">
+			<div id="navigation">
+				<ul>
+					<li><%= menu_link "FIT<font color=#0099CC>SET</font>.RU", pages_url %></li>
+					<li><%= menu_link "Магазин", "/shop" %></li>
+					<li><%= menu_link "Тусовка", blogs_url %></li>
+					<li><%= menu_link "Тренировки", workouts_url %></li>
+					<li><%= menu_link "Питание", "" %></li>
+				</ul>
+			</div>
+			<div id="account_menu">
+				<ul>
+					<% unless current_user %>
+						<li>
+							<%= link_to_function "Вход", :id => "login_link", :onclick => "show_login_form()" %> |
+						</li>
+						<li><%= menu_link "Регистрация", new_user_path, :ancor => true   %></li>
+					<% else %>
+						<li><%= menu_link "Мой профиль", current_user %></li>
+						<li><%= menu_link "Управление", admin_url %></li>
+						<li><%= link_to "Выход", logout_path %></li>
+					<% end %>
+				</ul>
+				<div id="login_form" class="widget_middle_grey hidden">
+					<%= render :partial => "stuff/login" %>
+				</div>
+			</div>
+		</div>
+		
+		<div id="container">
+			<% flash.each do |type, msg| %>
+				<%= content_tag :div, (content_tag :div, msg, :class => type, :id => "flash_#{type}"), :id => "flash_message" unless flash.empty? %>
+				<%= javascript_tag visual_effect(:fade, "flash_#{type}") %>
+			<% end %>
+			
+			<div id="secondary_navigation">
+				<%= yield(:sub_menu) %>
+			</div>
+						
+			<% if yield(:middle_bar) %>
+				<div id="content" class="w45">
+					<%= yield %>
+				</div>
+				<div id="middle_bar" class="w30">
+					<%= yield(:middle_bar) %>
+				</div>
+			<% else %>
+				<div id="content" class="w75">
+					<%= yield %>
+				</div>
+			<% end %>
+				
+			<div id="side_bar" class="w250px">
+				<% if current_user %>
+				
+					<div class="widget_light_yellow" id="user_left_menu">
+						<h3>Навигация мое меню</h3>
+						<ul class="user_menu_links">
+							<li><%= link_to "Настройки" %></li>
+							<li><%= link_to "Мои друзья" %></li>
+							<li><%= link_to "Мои фотографии" %></li><br />
+							<li><%= link_to 'Личные сообщения', messages_path %> <b style='color:#990000; font-size:0.8em'><%= howManyNewMessages? %></b></li>
+							<li><b><%= link_to 'Новое сообщение в блог', new_post_url %></b></li>
+						</ul>
+						
+					</div>
+					
+				<% end %>
+				<div class="widget_dark_grey" style="min-height:200px">
+					<h3>Рекламные ссылки</h3>
+					<%= image_tag "/images/advertising/rorer240x400.gif" %>
+					<% render :partial => "stuff/ad_right" %>
+				</div>
+				
+				<%= yield(:sidebar) %>
+				
+			</div>
+			
+			
+
+			<div id="footer">
+
+			</div>
+		</div>
+		
+	
+</body>
+</html>

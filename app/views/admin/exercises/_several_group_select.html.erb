@@ -1,0 +1,5 @@
+<ul style="list-style-type:none">
+<% MuscularGroup.find(:all).each do |muscular_group| %>
+	<li><%= check_box_tag "muscular_group_ids[]", muscular_group.id, false, :id => "muscular_group_#{muscular_group.id}" %> <%= label_tag "muscular_group_#{muscular_group.id}", muscular_group.title %></li>
+<% end %>
+</ul>

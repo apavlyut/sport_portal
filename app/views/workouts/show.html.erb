@@ -1,0 +1,11 @@
+<h1>Воркаут <%= @workout.created_at.strftime("%B %d, %Y") %></h1>
+<div class="empty_widget">
+	<h3></h3>
+</div>
+<% content_for :middle_bar do %>
+<div class="widget_grey">
+	<ul>
+		<li><%= link_to "Версия для печати", :controller => "workouts", :id => @workout.id, :action => "print_version" %></li>
+	</ul>
+</div>
+<% end %>

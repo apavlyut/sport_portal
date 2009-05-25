@@ -1,0 +1,27 @@
+<h1>Роли</h1>
+<% @system = System.find_by_key('roles_active') %>
+<% form_tag('/roles/activate') do  %>
+	<% checked = true %>
+	<% checked = false if @system.value == 'false' %>
+	<%= check_box_tag 'system[value]', 'true', checked, :id => 'switcher' %>
+	<%= label_tag 'switcher', 'Включить?', :style => 'font-size:0.8em' %>
+	<%= hidden_field_tag 'system[value]', 'false' %>
+	
+	<%= submit_tag 'Включить/Отключить систему прав доступа' %>
+<% end %>
+<br />
+
+<%= link_to 'Создать новую роль', new_role_path %>
+<br /><br />
+<div style='margin-left:20px'>
+<% for role in @roles %>
+	<% if ['Admin only', 'Administrator', 'Anonymouse', 'User'].include? role.rolename %>
+		<b><%= role.rolename %></b>
+	<% else %>
+		<%= role.rolename %>
+	<% end %>
+	<div style='font-size:0.8em'><i><%= role.comment %></i></div>
+	<div style='font-size:0.8em; margin-top:4px; font-weight:bold'><%= link_to 'Редактировать', edit_role_path(role) %> | <%= link_to 'Удалить', role, :confirm => 'Are you sure?', :method => :delete %></div>
+	<br/>	
+<% end %>
+</div>

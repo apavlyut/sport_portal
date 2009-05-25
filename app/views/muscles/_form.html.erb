@@ -1,0 +1,19 @@
+<p>
+<label for="exercise_title">Название</label><br/>
+<%= f.text_field 'title' %>
+</p>
+<p>
+	<%= debug params[:muscular_group_id] %>
+Группа мышц: 
+<% if params[:muscular_group_id] %>
+	<%= MuscularGroup.find(params[:muscular_group_id]).title %>
+	<%= f.hidden_field :muscular_group_id, :value => params[:muscular_group_id] %>
+<% else %>
+<%= collection_select(:muscle, :muscular_group_id, MuscularGroup.find(:all), :id, :title, :include_blank => false) %>
+<% end %> 
+</p>
+<p>
+	<label for="muscular_description">Описание</label><br/>
+	<%= f.text_area 'description', :rows => 5 %></p>
+</p>
+<br>

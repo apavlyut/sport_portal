@@ -1,0 +1,40 @@
+<% content_for :head do  %>
+	<%= stylesheet_link_tag 'shop' %>
+<% end %>
+
+<% content_for :sub_menu do %>
+	<ul>
+		<li><%= link_to "Моя корзина", cart_url %></li>
+	</ul>
+<% end %>
+
+<h1><%= getTitle %></h1>
+
+<div class="floats">
+		<% for product in @products %>
+		<% @image = Image.find_by_id(product.image_id) %>
+		<% 
+			cat_t ='all'
+			cat_t = "/"+params['title'] unless params['title'].nil?
+		%>
+       
+		<div class="left">
+				<div class="r">
+						<div class="shop_image_div"><%= link_to image_tag(@image.public_filename(:thumb), :alt => @image.title, :class => 'im_cat'), "/shop"+cat_t+"/products/"+product.id.to_s, :title => @image.title %></div>
+            <%= link_to product.title, product %><br />
+						<div class='shop_price'><%= product.price %></div>
+						<%= button_to "Добавить в корзину", '/shop'+cat_t+'/products/'+product.id.to_s+'/addToCart' %>
+						<div style="font-size:0.7em"><%= link_to 'Show', "/shop"+cat_t+"/products/"+product.id.to_s %> | <%= link_to 'Edit', edit_product_path(product) %> | <%= link_to 'Destroy', product, :confirm => 'Are you sure?', :method => :delete %></div>
+        </div>
+        <div class="min"></div>
+		</div>
+	<% end %>
+</div>
+
+
+<br />
+<br />
+<%= will_paginate @products%>
+<br /><br />
+
+<%= link_to 'New product', new_product_path %>

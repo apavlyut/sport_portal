@@ -1,0 +1,83 @@
+<div class="empty_widget">
+	<h3>Название</h3>
+	<p>
+		<%= f.text_field 'title', :style => "width:90%" %>
+	</p>
+	
+	<br>
+	<h3>Вид нагрузки</h3>
+	
+	<p>
+		<% StrengthType.find(:all).each do |st| %>
+			<%= f.radio_button(:strength_type_id, st.id) %>&nbsp;<%= st.title %>
+		<% end %>
+	</p>
+	
+	<br>
+	<h3>Мышечная группа:</h3>
+	<div id="group_select_place" class="widget_middle_grey">
+		<% if @exercise.muscular_groups.empty? %>
+			<p>
+				<%= collection_select(:muscular_group_ids, "", MuscularGroup.find(:all), :id, :title, :include_blank => false) %> 
+			</p>
+		<% else %>
+        
+		<ul>
+		<% @exercise.muscular_groups.each do |muscular_group| %>
+			<li><%= muscular_group.title %> - <%= link_to "убрать", {:action => "deattach_muscle", :muscular_group_id => muscular_group.id, :exercise_id => @exercise.id}, {:confirm => 'Вы уверены?', :method => :delete, :style => "color:red"}  %></li>
+		<% end %>
+		</ul>
+		<% end %>
+		 
+		<p>
+			Или <%= link_to_function "выберите сразу несколько мышечных групп &rarr;", :class => "js" do |page| 
+				page[:group_select_place].replace_html render :partial => "several_group_select", :locals => {:f => f}
+				page[:group_select_place].highlight
+			end %>
+		</p>
+			
+	</div>
+	
+	<br>
+	<br>
+	
+	<h3>Техника выполнения</h3>
+	<p>
+
+		*жирный* &rarr; <strong>Жирный</strong>; _курсив_ &rarr; <em>Курсив</em><br /><br />
+		<%= f.text_area 'description', :rows => 5, :style => "width:90%" %>
+	</p>
+	<div id="images_fields" class="">
+		<h3>Картинки к упражнению </h3>
+
+		<div id="images_place">
+			<p>
+				<label for='first_image'>
+					<%= link_to_function "Начальное положение &darr;", :class => "js" do |page|
+						page[:first_image].toggle
+					end %>
+				</label><br><br>
+				<%= file_field_tag "first_image", :class => "formField hidden" %>
+			</p>
+			<p>
+				<label for='middle_image'>
+					<%= link_to_function "Промежуточное положение &darr;", :class => "js" do |page|
+						page[:middle_image].toggle
+					end %>
+				</label><br><br>
+				<%= file_field_tag "middle_image", :class => "formField hidden" %>
+			</p>
+			<p>
+				<label for='last_image'>
+					<%= link_to_function "Конечное положение &darr;", :class => "js" do |page|
+						page[:last_image].toggle
+					end %>
+				</label><br><br>
+				<%= file_field_tag "last_image", :class => "formField hidden" %>
+			</p>
+		</div>	
+	</div>
+</div>
+
+
+

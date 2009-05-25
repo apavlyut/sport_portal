@@ -1,0 +1,15 @@
+<h1><%= @muscular_group.title %></h1>
+<p>
+	<%= @muscular_group.description %>
+	<%= "Описание не добавлено" if @muscular_group.description.empty? %>
+</p>
+<div class="empty_widget">
+	<h3>Упражнения в которых задействована эта группа мышц:</h3>
+	<ul class="normal">
+	<% @muscular_group.exercises.each do |exercise| %>
+	  <li><% image_tag "/images/exercises/#{exercise.first_image.filename if not nil?}", :width => 50 %>
+		<%= link_to exercise.title, admin_exercise_url(exercise) %>
+	  </li>
+	<% end %>
+	</ul>
+</div>

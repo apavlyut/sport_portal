@@ -1,0 +1,17 @@
+<h1>Новая роль</h1>
+<p style='font-size:1em; font-weight:bold'><%= link_to 'Назад', roles_path %></p>
+<% form_for(@role) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :rolename, 'Имя роли', :style => 'font-size:1.2em;' %><br />
+    <%= f.text_field :rolename, :style => 'font-size:1.4em; width:400px;margin-top:4px;' %>
+  </p>
+	<p>
+		<%= f.label :comment, 'Комментарий', :style => 'font-size:1.2em;' %><br/ >
+		<%= f.text_area :comment, :style => 'font-size:1.4em; width:400px; height:150px;margin-top:4px;' %>
+	</p>
+  <p>
+    <%= f.submit "Создать" %>
+  </p>
+<% end %>

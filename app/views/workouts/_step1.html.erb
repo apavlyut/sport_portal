@@ -1,0 +1,15 @@
+<% form_remote_tag :url => {:action => "step_1"} do -%>
+<div class="widget_blue">
+	
+	<table border="0" cellpadding="0">
+		<tr>
+			<% WeekDay.find(:all).each do |day| %>
+			<td>
+				<%= check_box_tag "days[]", day.id, false, :id => "value_#{day.id}" %>&nbsp;<%= label_tag "value_#{day.id}", day.title %>
+			</td>
+			<% end %>
+		</tr>
+	</table>
+</div>
+	<%= next_button %>
+<% end -%>

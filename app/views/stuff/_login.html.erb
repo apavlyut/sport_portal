@@ -1,0 +1,18 @@
+<div align='right'>
+	<% form_tag session_path do %>
+	<p>
+	<label for="login">Login</label>
+		<%= text_field_tag 'login', nil, :class => 'login_form' %>
+	</p>
+	<p>
+	<label for="password">Password</label>
+	<%= password_field_tag 'password', nil, :class => 'login_form' %>
+	</p>
+	<p>
+		<label for="remember_me"> Запомнить:</label>
+		<%= check_box_tag 'remember_me' %>
+		<%= submit_tag 'Войти' %>
+		<%= button_to_function "Отмена", :onclick => "hide_login_form()" %>
+	</p>
+	<% end %>
+</div>

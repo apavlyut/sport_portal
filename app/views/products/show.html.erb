@@ -1,0 +1,23 @@
+<h1><%= @product.title -%></h1>
+<div id='show_rm'>
+	<div class="shop_price"><%=@product.price%> руб.</div>
+	<% 
+		cat_t = '/all'
+		cat_t = "/"+params['title'] unless params['title'].nil?
+	%>
+	<%= form_tag('/shop'+cat_t+'/products/'+@product.id.to_s+'/addToCart')%>
+	Количество: <%= text_field_tag :amount, '1', :class => 'show_amount'%> шт. <br />
+	<%= submit_tag 'Добавить в корзину'%>
+</div>
+
+<% @image = Image.find_by_id(@product.image_id)%>
+<div class="show_image_div"><%= image_tag(@image.public_filename(), :alt => @image.title, :class => 'im_cat')%></div>
+
+<br clear='all' />
+<div class="show_description"><%= simple_format(@product.description) -%></div>
+<br />
+
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>
+<br /><br /><br />

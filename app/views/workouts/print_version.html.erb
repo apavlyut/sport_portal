@@ -1,0 +1,109 @@
+<p>
+	<strong>Памятка</strong>: Тренировочная программа для <%= @workout.gender == 1 ? "мужчин" : "женщин" %>, уровень: <%= @workout.difficult_level.title %>, цель: <%= @workout.goal.title %>. Занятия: <%= @workout.days.size %> раз(а) в неделю.
+</p>
+<br>
+<br>
+<% @workout.days.each do |day| %>
+	
+	<%  
+		max_reps = 1
+		
+		day.day_lines.each do |line|
+			if line.exercise_sets.size > max_reps
+				max_reps = line.exercise_sets.size
+			end				
+		end
+	%>
+	
+	<table>
+		<tr>
+			<th width="30">№</th>
+			
+			<th width="150">Название упражнения</th>
+			
+			<th width="50">нагрузка</th>
+			
+			<th colspan="<%= max_reps %>" width="250">режим выполнения</th>
+			
+			<th colspan="3">Подсказка</th>
+		</tr>
+		<tr>
+			<th colspan="3" align="left">
+				<%= day.week_day.title %>:
+				<% day.muscular_groups.each do |mg| %>
+					<%= mg.title %> 
+				<% end %>
+			</th>
+			<% 1.upto(max_reps) do |i| %>
+				<th rowspan="2">
+					<%= i %> подход
+				</th>
+			<% end %>
+			
+			<th rowspan="2" width="110">
+				Начало движения
+			</th>
+			<th rowspan="2" width="110">
+				Конец движения
+			</th>
+			<th rowspan="2" width="150">
+				Обратите внимание
+			</th>
+		</tr>
+		
+		<tr>
+			<th colspan="3" align="left">
+				Разминка: велосипед
+			</th>
+		</tr>
+		<% day.day_lines.each_with_index do |line, position| %>
+		<tr>
+			<th colspan="3">
+				<em>отдых между подходами</em>
+			</th>
+			
+			<% line.exercise_sets.each do |set| %>
+				<th><%= set.time_rest %> сек</th>
+			<% end %>
+			
+			<th rowspan="3">
+				<%= image_tag "#{line.exercise.first_image.public_filename unless line.exercise.first_image.nil?}", :width => 100 %>
+			</th>
+			
+			<th rowspan="3">
+				<%= image_tag line.exercise.last_image.public_filename, :width => 100 %>
+			</th>
+			
+			<th rowspan="3" valign="top">
+				<%= to_redcloth_html line.exercise.description %>
+			</th>
+		</tr>
+		
+		<tr>
+			<th rowspan="2"><%= position + 1 %></th>
+			<th rowspan="2">
+				<%= line.exercise.title %>
+			</th>
+			
+			<th>
+				Вес
+			</th>
+			<% line.exercise_sets.each do |set| %>
+				<th><%= set.weight %> кг</th>
+			<% end %>
+		</tr>
+		
+		<tr>
+			<th>
+				Кол-во повторений
+			</th>
+        	<% line.exercise_sets.each do |set| %>
+				<th><%= set.repetitions %> раз</th>
+			<% end %>
+		</tr>
+		
+		<% end %>
+	</table>
+	<br><br>
+	
+<% end %>

@@ -1,0 +1,31 @@
+<%= stylesheet_link_tag "messages" %>
+
+<% if @message.status < 3 %>
+<img width='48' heght='48' src='http://habrahabr.ru/media/userpic/avatar/5e/ef/f8/12853.jpg' border='1' align='absmiddle'>
+<% user = User.find_by_id(@message.from_id) %>
+<%= link_to user.login, user %>, пишет:
+<br clear='all' \>
+<% end %>
+
+<div style='margin-left:70px; margin-top:20px; width:400px; background-color: #f2f2f2; padding:4px'>
+	<%= simple_format(h @message.body) if @message.status < 3%>
+	<%= simple_format(@message.body) if @message.status >= 3%>
+	<br />
+	<div align='right'><%= link_to 'Удалить', @message, :confirm => 'Are you sure?', :method => 'delete', :class => 'delete' %></div>
+</div>
+<br />
+<div style='margin-left:50px; margin-top:20px'>
+	
+<% if @message.status < 3 %>
+	<h3>Ответить:</h3>
+	<% form_tag('/messages') do %>
+		<%= hidden_field_tag 'message[to_id]', @message.from_id %>
+		<%= text_area_tag 'message[body]', nil, :style => 'width:400px; height:150px; font-size:1.5em'%><br />
+		<%= submit_tag 'Ответить' %>
+	<% end %>
+<% end %>
+</div>
+
+<% content_for :sub_menu do %>
+	<%= render :partial => "in_out" %>
+<% end %>

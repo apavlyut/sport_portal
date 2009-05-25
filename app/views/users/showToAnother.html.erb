@@ -1,0 +1,22 @@
+<img width='48' height='48' src='http://habrahabr.ru/media/userpic/avatar/5e/ef/f8/12853.jpg' border='1' align='absmiddle'> <span style='font-size:1.4em'><%= @user.login %> | </span> 
+<% unless @they_are_friends %>
+	<%=link_to 'Добавить в друзья', '/users/addFriend/'+params[:id] %> 
+<% end %>
+<span style='float:left; margin-right:10px; margin-top:6px; font-size:2em; padding:4px; background-color: #FFF9BA'>
+	<span style='color:red'>↓</span> 43 <span style='color:green'>↑</span>
+</span>
+<br clear='all' />
+<br />
+<br />
+<%= render :partial => "friends" %>
+<br /><br /><br />
+<h3>Отправить сообщение</h3>
+<% form_tag('/messages') do %>
+	<%= hidden_field_tag 'message[to_id]', @user.id %>
+	<%= text_area_tag 'message[body]', nil, :style => 'width:400px; height:150px; font-size:1.5em' %><br />
+	<%= submit_tag 'Отправить'%>
+<% end %>
+
+<% content_for :sub_menu do %>
+	<%= render :partial => "/stuff/management_sub_menu" %>
+<% end %>

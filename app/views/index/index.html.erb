@@ -1,0 +1,29 @@
+<div style='height:110%; width:100%; background-color:#fff; color:#74C1E9; overflow: hidden; font-size:50em; position:absolute; top:-10%; left:0px;' width=100% height=100%>
+FitSet
+</div>
+
+<table style='height:100%; position:absolute; top:0px; left:0px;' width=100% height=100%>
+	<tr valign=middle>
+		<td align=center>
+			<% unless logged_in? %>
+				<span style='font-size:4em; padding:10px; border-bottom:1px solid black'>Введите логин и пароль</span><br /><br />
+				<% form_tag session_path do %>
+				<p><label for="login" style='font-size:1.8em'>Логин</label><br/>
+				<%= text_field_tag 'login', nil, :style=>'font-size:1.8em' %></p>
+
+				<p><label for="password" style='font-size:1.8em'>Пароль</label><br />
+				<%= password_field_tag 'password', nil, :style=>'font-size:1.8em' %></p>
+
+
+				<p><label for="remember_me">Помнить обо мне:</label>
+				<%= check_box_tag 'remember_me' %></p>
+
+				<p><%= submit_tag 'Войти' %>
+				<% end %>
+			<% else %>
+				Не дури, <%=current_user.login %>, сначала <%= link_to 'выйди', logout_url%>
+			<% end %>
+			
+		</td>
+	</tr>
+</table>

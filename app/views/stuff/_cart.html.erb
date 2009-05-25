@@ -1,0 +1,8 @@
+	<b style='font-size:0.8em'>Ваш заказ:</b><br />
+	<% @orders.each do |order|%>
+		<% product = Product.find_by_id(order.product_id) %>
+		<%= link_to product.title, product %> <b style='font-size:0.8em'>x <%= order.amount %></b><br />	
+	<% end %>
+	<hr>
+	<b style='font-size:0.8em'>Итого: <%= @sum %></b><br /><br/>
+	<b><%= link_to 'Перейти в корзину →', '/shop/cart/'%></b>

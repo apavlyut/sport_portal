@@ -1,0 +1,54 @@
+<% content_for :head do %>
+	<%= stylesheet_link_tag "app_screen.css","jquery-ui-themeroller" %>
+	<%= javascript_include_tag "ui.tabs" %>
+<% end %>
+
+<h1>Формирование программы тренировок</h1>
+
+
+<div id="step-1" class="empty_widget">
+	<h3 id="step-1-title">Тренировочный цикл</h3>
+	<div id="step-1-content" class="current_content">
+		<%= render :partial => "step1" %>
+	</div>
+	
+</div>
+
+<div id="step-2" class="upcoming">
+	<h3 id="step-2-title">Выбор мышечных групп</h3>
+	<div id="step-2-content" class="current_content">
+		
+	</div>
+</div>
+
+<div id="step-3" class="upcoming">
+	<h3 id="step-3-title">Подбор упражнений</h3>
+	<div id="step-3-content" class="current_content">
+		
+	</div>
+</div>
+
+<div id="step-4" class="upcoming">
+	<h3 id="step-4-title">Распределение нагрузки</h3>
+	<div id="step-4-content" class="current_content">
+		
+	</div>
+</div>
+
+<div id="step-5" class="upcoming">
+	<h3 id="step-5-title">Параметры программы</h3>
+	<div id="step-5-content" class="current_content">
+		
+	</div>
+</div>
+
+<div id="step-6" class="upcoming">
+	<h3 id="step-6-title">Завершение</h3>
+	<div id="step-6-content" class="current_content">
+		
+	</div>
+</div>
+
+<div id="finish">
+	
+</div>

@@ -1,0 +1,14 @@
+<div id="catalogues">
+<% for category in Category.find(:all, :order => 'lft ASC', :conditions => ['parent_id IS NOT NULL']) %>
+	<% level = category.level - 1%>
+	<% unless params[:title].nil? %>
+		<% unless params[:title].downcase == category.transcrib.downcase and params[:id].nil? and params[:page].nil? %>
+		<div class='category<%=level%>'><%= "&nbsp;&nbsp;"*level -%><%= link_to category.title, "/shop/"+category.transcrib.downcase+"/products" -%></div>
+		<% else %>
+		<div class='category<%=level%>'><%= "&nbsp;&nbsp;"*level -%><%= category.title -%></div>
+		<% end %>
+	<% else %>
+		<div class='category<%=level%>'><%= "&nbsp;&nbsp;"*level -%><%= link_to category.title, "/shop/"+category.transcrib.downcase+"/products" -%></div>
+	<% end %>
+<% end %>
+</div>

@@ -1,0 +1,32 @@
+<%= stylesheet_link_tag "blogs" %>
+
+
+<% content_for :sub_menu do %>
+	<ul>
+		<li><%= menu_link "Новые", '/blogs' %></li>
+		<li><%= menu_link "Популярные", '' %></li>
+		<li><%= menu_link "Лента друзей", '' %></li>
+	</ul>
+<% end %>
+
+
+<h1>Лента блогов</h1>
+
+<% for post in @posts %>
+<div class='post_top_links'>
+	<img src='http://habrahabr.ru/media/userpic/avatar/5e/ef/f8/12853.jpg' class='small_avatar' align='middle'>
+	<% user = User.find_by_id(post.author) %>
+	<%= link_to user.login, user %>, <span class='date'><%= post.created_at.strftime("%B %d, %Y %H:%M") %></span>, написал:
+</div>
+<div class='post_short'>
+	<h2><%= link_to post.title, '/blogs/'+post.author.to_s+'/'+post.id.to_s+'/' %></h2>
+	<%= h (truncate(post.body, 200)) %>
+	<div class='post_links'>
+		<!-- <span style='color:red'>↓</span> 2 <span style='color:green'>↑</span> -->
+		<%= link_to 'комментарии', '/blogs/'+post.author.to_s+'/'+post.id.to_s+'/' %> (<%= post.replies || '0'%>)
+	</div>
+</div>
+<br /><br />
+<% end %>
+<%= will_paginate @posts %>
+<br /><br />

@@ -1,0 +1,12 @@
+<h1>Новая мышца</h1>
+
+<%= error_messages_for :muscle %>
+
+<% form_for(@muscle) do |f| %>
+  	<%= render :partial => "form", :locals => {:f => f} %>
+	<%= f.submit "Создать мышцу" %>
+<% end %>
+
+<% content_for :sub_menu do %>
+	<%= render :partial => "/stuff/management_sub_menu" %>
+<% end %>

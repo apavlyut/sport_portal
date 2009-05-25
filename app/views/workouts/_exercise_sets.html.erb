@@ -1,0 +1,26 @@
+<% unless day_line.exercise_sets.empty? %>
+<table>
+	<tr>
+		<% day_line.exercise_sets.each do |set| %>
+			<td onmouseover="$('#set-<%= set.id %>-x').show();" onmouseout="$('#set-<%= set.id %>-x').hide();">
+				<%= set.time_rest %> сек<br>
+				<%= set.weight %> кг <br>
+				<%= set.repetitions %> раз <br>
+				<div id="set-<%= set.id %>-x" class="hidden remove widget_grey">
+					<%= link_to_remote "Удалить", 
+						:url => {
+							:controller => "workouts",
+							:id => day_line.day.workout.id,
+							:action => "remove_exercise_set", 
+							:exercise_set_id => set.id}, 
+						:html => {:class => "red js"}, 
+						:confirm => "?" %> |
+					<%= link_to_function "+ подход", "$('#line-#{day_line.id}-form').fadeIn('fast');", :class => "js" %>
+				</div>
+			</td>
+		<% end %>
+	</tr>
+</table>
+<% else %>
+	<%= link_to_function "+ подход", "$('#line-#{day_line.id}-form').fadeIn('fast');", :class => "js" %>
+<% end %>

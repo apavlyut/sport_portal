@@ -1,0 +1,47 @@
+<h1>Корзина</h1>
+<% if @orders %>
+<div class="floats">
+	<% @orders.each do |order| %>
+	<% product = Product.find_by_id(order.product_id)%>
+	<% image = Image.find_by_id(product.image_id) %>
+	    <div class="left">
+	        <div class="r">
+							<div class="shop_image_div"><%= link_to image_tag(image.public_filename(:thumb), :alt => image.title, :class => 'im_cat'), product, :title => image.title %></div>
+	            <%= link_to product.title, product %><br />
+							<% form_tag('/shop/all/products/'+product.id.to_s+'/updateCart') do %>
+							Количество: <%= text_field_tag :amount, order.amount, :class => 'show_amount'%> шт. <br />
+							<%= submit_tag 'Обновить' -%> <%= link_to 'Удалить', '/shop/all/products/'+product.id.to_s+'/updateCart' %>
+							<div class='shop_price'>
+								<%= product.price %> <%= 'x '+order.amount.to_s + ' = ' + (product.price*order.amount).to_s if order.amount > 1%>
+							</div>
+							<% end %>
+						</div>
+	        <div class="min"></div>
+	    </div>
+	<% end %>
+</div>
+
+<br /><br />
+<hr style='margin-right: 120px'>
+<h2>Итого: <%= @sum %></h2>
+<%= button_to 'Очистить корзину', :action => 'removeCart' %>
+<hr style='margin-right: 120px'>
+<br /><br />
+<h2>Все верно?</h2>
+Тогда заполните анкету и отправьте заказ<br /><br />
+<% form_tag :action => 'makeOrder' do %>
+Ваше имя:<br />
+<%= text_field_tag 'data[name]', nil, :class => 'cart_form' %><br /><br />
+Телефон для связи:<br />
+<%= text_field_tag 'data[phone]', nil, :class => 'cart_form' %><br /><br />
+Email:<br />
+<%= text_field_tag 'data[email]', nil, :class => 'cart_form' %><br /><br />
+Адрес для доставки:<br />
+<%= text_area_tag 'data[address]', nil, :class => 'cart_form_ta' %><br /><br />
+Что-то еще?<br />
+<%= text_area_tag 'data[extra]', nil, :class => 'cart_form_ta' %><br /><br />
+<%= submit_tag 'Отправить заказ'%><br /><br />
+<% end %>
+<% else %>
+Пусто
+<% end %>

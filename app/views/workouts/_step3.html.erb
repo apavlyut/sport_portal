@@ -1,0 +1,90 @@
+<% form_remote_tag :url => {:action => "step_3"} do -%>
+
+<div class="empty_widget">
+	<p>&nbsp;</p>
+	<div id="workout_tabs">
+		<ul>
+			<% @workout.days.each do |day| %>
+	        	<li class="ui-tabs-nav-item">
+					<a href="#day-<%= day.id %>"><%= day.week_day.title %></a>
+				</li>
+			<% end %>
+	    </ul>
+		<% @workout.days.each do |day| %>
+			<div id="day-<%= day.id %>">
+		
+				<table class="exercise_widget empty_widget">
+					<tr>
+						<td valign="top" width="170px" class="widget_grey">
+								
+							<h4>Мышечная группа:</h4>
+							<br>
+							<% day.muscular_groups.each do |muscular_group| %>
+								<div style="padding:5px; padding-left:10px;">
+									<%= link_to_function muscular_group.title, :class => "js" do |page| 
+											page[:exercises_place].replace_html :partial => "execises_list", :locals => { :muscular_group => muscular_group, :day => day }
+										end
+									%>
+								</div>
+							<% end %>	
+						</td>
+						<td class="widget_grey" style="padding-left:10px">
+							<div id="exercises_place">
+								<% unless day.muscular_groups.empty? %>
+									<%= render :partial => "execises_list", :locals => { :muscular_group => day.muscular_groups.first, :day => day} %>
+								<% else %>
+									Пюсто
+								<% end %>
+							</div>
+						</td>
+						<td width="200" class="td_drop widget_blue">
+							<div id="day-<%= day.id %>-exercises-drop-place" class="exercises-drop-place">
+			    				<%= render :partial => "day_line", :locals => {:day_lines => day.day_lines}  %>
+							</div>
+								<%= drop_receiving_element("day-#{day.id}-exercises-drop-place", {
+											:url => {:action => "add_exercise", :id => @workout.id, :day_id => day.id},
+											:accept => ".dragabble-exercise", :activeClass => "drag-active", :hoverclass => "drag-hover"
+										}
+									) %>
+						</td>
+					</tr>
+				</table>
+				
+				<!--  OLD VIEW:
+				Библиотека упражнений:
+				<div id="day-<%= day.id %>-exercises-shooser" class="exercises-chooser widget_grey">
+					<% day.muscular_groups.each do |muscular_group| %>
+						<h4><%= muscular_group.title %>:</h4>
+						<div class="margin-left:20px">
+							<% muscular_group.exercises.each do |exercise| %>
+								<div id="exercise_<%= exercise.id %>-day-<%= day.id %>" class="dragabble-exercise"><%= exercise.title %></div>
+								<%= draggable_element("exercise_#{exercise.id}-day-#{day.id}", :revert => true) %>
+							<% end %>
+						</div>
+					<% end unless day.muscular_groups.empty? %>
+	        	</div>
+	
+				Пертащите сюда ваши упражнения:
+				
+				<div id="day-<%= day.id %>-exercises-drop-place" class="exercises-drop-place widget_middle_grey">
+    				<%= render :partial => "day_line", :locals => {:day_lines => day.day_lines}  %>
+				</div>
+				<%= drop_receiving_element("day-#{day.id}-exercises-drop-place", {
+							:url => {:action => "add_exercise", :id => @workout.id, :day_id => day.id},
+							:accept => ".dragabble-exercise", :activeClass => "drag-active", :hoverclass => "drag-hover"
+						}
+					) %>
+				-->
+    
+			</div>
+		<% end %>
+	</div>
+	<script type="text/javascript" charset="utf-8">
+		$('#workout_tabs ul').tabs();
+	</script>
+</div>
+
+	<%= hidden_field_tag :workout_id, @workout.id %>
+	<%= next_button %>
+
+<% end -%>

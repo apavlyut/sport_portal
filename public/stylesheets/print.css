@@ -1,0 +1,38 @@
+@media print, all {
+	body {
+		padding: 10px;
+		font-size: 12px;
+	}
+	
+	h1, h2, h3 {
+		color: black;
+		font-weight: normal;
+		margin-top: 12px;
+		margin-bottom: 12px;
+		padding-bottom: 12px;
+	}
+
+	h1 {
+		font-size: 1.8em;
+	}
+
+	h2 {
+		font-size: 1.5em;
+	}
+
+	h3 {
+		font-size: 1.4em;
+	}
+
+	table, td, th {
+		border: 1px solid grey;
+		padding: 10px;
+	}
+
+	table {
+		width: 100%;
+	}
+	table td, th {
+		vertical-align: top;
+	}
+}

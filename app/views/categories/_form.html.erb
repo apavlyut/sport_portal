@@ -1,0 +1,18 @@
+<% form_for(@category) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :parent_id %><br />
+
+		<%= debug @all
+		f.collection_select :parent_id, Category.find(:all) , :id, :title
+		%>
+  </p>
+  <p>
+    <%= f.submit "Do" %>
+  </p>
+<% end %>

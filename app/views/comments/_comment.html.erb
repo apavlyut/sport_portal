@@ -1,0 +1,12 @@
+<div id='comment_<%=comment.id%>'>
+		<% author = User.find_by_id(comment.author).login %>
+		<img src='http://habrahabr.ru/media/userpic/avatar/5e/ef/f8/12853.jpg' class='comment_avatar' align='middle'>
+		<span style='font-weight:bold; color:#999; font-size:0.7em'>#<%= (@id+=1).to_s %></span>
+		<%= link_to author, user_url(comment.author) %> <span class='date'><%= comment.created_at.strftime("%B %d, %Y %H:%M") %></span> 
+		<span class='small'>оставил коммент:</span>
+		<div class='comment_body'>
+			<%= simple_format(h comment.body) %>
+			<%= link_to_remote 'Удалить', :confirm => 'Точно удалить комментарий?', :url => comment_path(comment), :method => 'delete', :html => {:style=>'margin-left:20px; color:red', :class=>'small'}%>
+		</div>
+		<br clear='all' />
+</div>

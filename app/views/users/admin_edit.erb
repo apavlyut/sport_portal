@@ -1,0 +1,21 @@
+
+<h1>Editing user / admin</h1>
+
+<% form_tag :action => :admin_update, :id => @user.id do %>
+
+  <p>
+    <%= label :user, :login %><br />
+    <%= text_field :user, :login %>
+  </p>
+
+  <p>
+    <%= label :user, :role %><br />
+    <%= collection_select :user, :role, @roles, :id, :rolename, :prompt => true %>
+  </p>
+  <p>
+    <%= submit_tag "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @user %> |
+<%= link_to 'Back', users_path %>

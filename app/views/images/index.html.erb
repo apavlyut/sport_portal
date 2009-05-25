@@ -1,0 +1,15 @@
+<h1>Listing images</h1>
+
+<% for image in @images %>
+
+	<p>Title: <%=h image.title %></p>
+	
+	<%= link_to image_tag(image.public_filename(:thumb)), image.public_filename %>
+	<br />
+	<%= link_to 'Delete', image, :method => :delete %>
+	
+<% end %>
+
+<br />
+
+<%= link_to 'New image', new_image_path %>

@@ -1,0 +1,2 @@
+page.replace_html 'comment_'+@id
+flash.discard

@@ -1,0 +1,232 @@
+.floats
+{
+	/* Компенсируем отступы между float-блоками, чтобы они занимали все доступное пространство */
+	margin: -3em 0 0 -2em;
+
+	/* Эти правила для IE */
+	position: relative;
+	display: inline-block;
+	clear: both;
+	top:10px;
+	padding-left:10px;
+}
+.floats:after
+{
+	content: '';
+	display: block;
+	clear: both;
+}
+.floats .left
+{
+	position: relative;
+	float: left;
+
+	/* Убираем удвоение отступов в IE */
+	display: inline;
+
+	/* Прячем все, что вдруг вылезло за наши ограничения */
+	overflow: hidden;
+
+	/* Отсупы между float-блоками */
+	margin: 3em 0 0 2em;
+
+	/* Задаем минимальную ширину по картинке и тексту */
+	width: 14em;
+	min-width: 200px;
+}
+.floats .left .r
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+.floats .left .min
+{
+	/* Задаем минимальную высоту по картинке */
+	margin: 0 0 200px 0;
+
+	/* Задаем минимальную высоту по тексту */
+	height: 4em;
+
+	/* Дублируем значение минимальной ширины по картинке для IE */
+	width: 200px;
+}
+.r a img
+{
+	border:0px;
+}
+
+/*CATALOGUE*/
+#catalogue
+{
+	padding:5px;
+	padding-top:50px;
+	float:left;
+	margin-left:35px;
+	width:180px;
+}
+.cart
+{
+	background-color: #efefef;
+	padding:4px;
+	margin-top:20px;
+	font-size:0.85em;
+}
+.catalogue_cat, .catalogue_cat_choosen
+{
+	margin-bottom:12px;
+	font-weight: bold;
+}
+.catalogue_item, .catalogue_item_choosen
+{
+	margin-left: 8px;
+	margin-top:4px;
+	font-weight: normal;
+}
+
+.category0
+{
+/*	margin:2px;*/
+/*	padding:4px;*/
+	margin-top:14px;
+/*	font-weight: bold;*/
+	font-size: 1.2em;
+/*	background-color: #E0EFFB;*/
+}
+.category1
+{
+/*	margin:2px;*/
+	margin-top:4px;
+	margin-left: 4px;
+/*	padding:4px;*/
+/*	background-color:#D1D2B5;*/
+}
+.category2
+{
+	margin:2px;
+	margin-top:4px;
+	margin-left:10px;
+	padding:4px;
+	background-color: #E5E5D5;
+}
+.category3
+{
+	margin:2px;
+	margin-left:20px;
+	padding:4px;
+	background-color: #EFF0E9;
+}
+.grey
+{
+	color:#ccc;
+}
+
+
+.floats
+{
+/* Компенсируем отступы между float-блоками, чтобы они занимали все доступное пространство */
+margin: -3em 0 0 -2em;
+
+/* Эти правила для IE */
+position: relative;
+display: inline-block;
+clear: both;
+}
+.floats:after
+{
+content: '';
+display: block;
+clear: both;
+}
+.floats .left
+{
+position: relative;
+float: left;
+
+/* Убираем удвоение отступов в IE */
+display: inline;
+
+/* Прячем все, что вдруг вылезло за наши ограничения */
+overflow: hidden;
+
+/* Отсупы между float-блоками */
+margin: 3em 0 0 2em;
+
+/* Задаем минимальную ширину по картинке и тексту */
+width: 14em;
+min-width: 200px;
+}
+.floats .left .r
+{
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+}
+.floats .left .min
+{
+/* Задаем минимальную высоту по картинке */
+margin: 0 0 200px 0;
+
+/* Задаем минимальную высоту по тексту */
+height: 4em;
+
+/* Дублируем значение минимальной ширины по картинке для IE */
+width: 200px;
+}
+
+.shop_image_div
+{
+	width:150px; height:150px; border:2px solid #efefef; text-align:center; vertical-align: middle; line-height:200px; display: table-cell;
+}
+.shop_price
+{
+	color:#990000; font-weight:bold;font-size:0.8em
+}
+#show_rm
+{
+	right:40px;
+	top: 190px;
+	position:absolute;
+	float:right;
+	background-color: #efefef;
+	width:240px;
+	padding:10px;
+}
+.show_amount
+{
+	width:20px;
+	text-align:center;
+}
+.show_image_div
+{
+	width:450px; height:450px; border:2px solid #efefef; text-align:center; vertical-align: middle; line-height:450px; display: table-cell;
+}
+.show_description
+{
+	width:600px;
+}
+
+.cart_form
+{
+	width:400px;
+	height: 1.4em;
+	font-size: 1.4em;
+	background-color: #f9f9f9;
+}
+.cart_form_ta
+{
+	width:400px;
+	height: 4.2em;
+	font-size: 1.2em;
+	background-color: #f9f9f9;
+}
+
+.login_form
+{
+	border:1px solid #ccc;
+	height: 1.4em;
+	margin-bottom:2px;
+	font-size: 1em;
+}

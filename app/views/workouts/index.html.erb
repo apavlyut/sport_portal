@@ -1,0 +1,28 @@
+<h1>Тренировочные программы</h1>
+ 
+<% if @workouts.empty? %>
+	<p>
+		У вас еще нет программ
+	</p>
+<% else %>
+	<ul>
+		<% @workouts.each do |workout| %>
+			<li><%= "(Не завершена)" unless workout.is_complete %> <%= link_to workout.created_at.strftime("%B %d, %Y"), workout_url(workout) %></li>
+		<% end %>
+	</ul>
+<% end %>
+
+<% content_for :sub_menu do %>
+	<ul>
+		<li><%= menu_link "Мои программы", workouts_url %></li>
+	</ul>
+<% end %>
+
+<% content_for :middle_bar do %>
+	<div class="widget_grey">
+		<h3>Мои действия</h3>
+		<ul class="normal">
+			<li><%= link_to "Создать новую программу", new_workout_url %></li>
+		</ul>
+	</div>
+<% end %>

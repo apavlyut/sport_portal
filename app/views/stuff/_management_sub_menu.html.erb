@@ -1,0 +1,10 @@
+<ul>
+	<% if logged_in? %>
+			<li><%= menu_link "Редактировать профиль", edit_management_user_url(current_user) %></li>
+	<% end %>
+	<li><%= menu_link "Сменить пароль", change_password_url %></li>
+	<li><%= menu_link "Пользователи", management_users_url %></li>
+	<li><%= menu_link "Доступ к разделам", roles_url %></li>
+	<li><%= menu_link "Упражнения", management_exercises_url %></li>
+	<li><%= menu_link "Мышцы", management_muscles_url %></li>
+</ul>

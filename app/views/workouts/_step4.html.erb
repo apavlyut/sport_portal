@@ -1,0 +1,68 @@
+<div class="empty_widget">
+	<p>Расставить подходы и веса.
+	Круговая или нет.</p><br><br>
+	<div id="workout_tabs">
+		<ul>
+			<% @workout.days.each do |day| %>
+	        	<li class="ui-tabs-nav-item">
+					<a href="#day-<%= day.id %>"><%= day.week_day.title %></a>
+				</li>
+			<% end %>
+	    </ul>
+   		<% @workout.days.each do |day| %>
+			<div id="day-<%= day.id %>">
+				<h3><%= day.week_day.title %></h3>
+				<table class="sets_table widget_grey">
+					<% day.day_lines.each do |line| %>
+					<tr>
+						<th>
+							<%= link_to line.exercise.title %>
+						</th>
+						<td align="left">
+							<div id="line-<%= line.id %>-sets" class="exercise_sets float_left">
+        		            	<%= render :partial => "exercise_sets", :locals => {:day_line => line} %>
+							</div>
+							<div id="line-<%= line.id %>-form" class="reps_form hidden float_left">
+								<% form_remote_for "sets", :url => {:action => "add_set_to_day_line"} do |f| %>
+									<table class="widget_grey reps_input">
+										<tr>
+											<th><%= f.label :reps, "Повторений" %></th>
+											<td><%= f.text_field "reps", :size => 3 %> кг</td>
+										</tr>
+										<tr>
+											<th><%= f.label :rest, "Отдых" %></th>
+											<td><%= f.text_field "rest", :size => 3 %> сек</td>
+										</tr>
+										<tr>
+											<th><%= f.label :weight, "Вес" %></th>
+											<td><%= f.text_field "weight", :size => 3 %> раз</td>
+										</tr>
+										<tr>
+											<td>
+												<%= f.hidden_field :line_id, :value =>  line.id %>
+												<%= button_to_function "Отмена", "$('#line-#{line.id}-form').fadeOut('fast');" %>
+											</td>
+											<td>
+												<%= f.submit "+ Добавить", :onclick => "$('#line-#{line.id}-form').fadeOut('fast');" %>
+											</td>
+										</tr>
+									</table>
+								<% end %>
+							</div>				
+						</td>
+					</tr>
+					<% end %>
+				</table>   
+			</div>		
+   		<% end %>	
+
+	</div>
+	<script type="text/javascript" charset="utf-8">
+		$('#workout_tabs ul').tabs();
+	</script>
+</div>
+		
+	<% form_remote_tag :url => {:action => "step_4"} do -%>
+		<%= hidden_field_tag :workout_id, @workout.id %>
+		<%= next_button %>
+	<% end -%>

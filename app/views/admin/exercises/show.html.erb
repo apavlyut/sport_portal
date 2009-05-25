@@ -1,0 +1,71 @@
+<h1><%= @exercise.title %></h1>
+<div class="empty_widget">
+<table border="0" width="90%" align="center">
+	<tr>
+		<% unless @exercise.first_image.nil? %>
+			<td valign="top">
+				<h3>Начальное положение</h3>
+			</td>
+		<% end %>
+		<% unless @exercise.middle_image.nil? %>
+			<td valign="top">
+				<h3>Промежуточное положение</h3>
+			</td>
+		<% end %>
+		<% unless @exercise.last_image.nil? %>
+			<td valign="top">
+				<h3>Конечное положение</h3>
+			</td>
+		<% end %>
+	</tr>
+	<tr>
+		<% unless @exercise.first_image.nil? %>
+			<td valign="bottom">
+				<%= image_tag "#{@exercise.first_image.public_filename unless @exercise.first_image.nil?}", :width => "150", :hspace => "20" %></td>
+			</td>
+		<% end %>
+		<% unless @exercise.middle_image.nil? %>
+			<td valign="bottom">
+				<%= image_tag "#{@exercise.middle_image.public_filename}", :width => "150", :hspace => "20" %>
+			</td>
+		<% end %>
+		<% unless @exercise.last_image.nil? %>
+			<td valign="bottom">
+				<%= image_tag "#{@exercise.last_image.public_filename unless @exercise.last_image.nil?}", :width => "150", :hspace => "20" %>
+			</td>
+		<% end %>
+	</tr>
+</table>
+<p></p>
+<div class="widget_middle_grey">
+	<h3>Зоны воздействия</h3>
+	<ul class="normal">
+		<% @exercise.muscular_groups.each do |group| %>
+			<li>
+				<%= link_to group.title, admin_muscular_group_url(group) %>
+			</li>	
+		<% end %>
+	</ul>
+</div>
+<br>
+
+</div>
+
+<div class="widget_light_yellow description">
+	<h3>Техника выполнения упражнения:</h3>
+	<%= to_redcloth_html @exercise.description %>
+</div>
+
+<% content_for :middle_bar do %>
+	<div class="widget_grey">
+		<h3>Ваши действия</h3>
+		<ul class="normal">
+			<li><%= link_to "Редактировать", edit_admin_exercise_url(@exercise) %></li>
+			<li><%= link_to "Удалить", admin_exercise_url(@exercise), :method => :delete, :confirm => "Вы уверены?" %></li>
+		</ul>
+	</div>
+<% end %>
+
+<% content_for :sub_menu do %>
+	<%= render :partial => "admin/menus/admin_main_submenu" %>
+<% end %>
